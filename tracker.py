@@ -4,7 +4,9 @@ from datetime import date
 DB_PATH = "data/habits.db"
 
 def init_db():
-    """Initialize the database and create tables if not exist."""
+    """Ensure data folder exists and initialize the database."""
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)  # ← This creates the /data folder
+
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
