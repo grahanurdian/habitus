@@ -51,4 +51,4 @@ if st.button("⚡ Motivate Me"):
 
 # 📌 Footer
 st.markdown("---")
-st.caption("Made with ❤️ by [Your Name] • [GitHub](https://github.com/yourusername/ai-habit-coach)")
+st.caption("Made with ❤️ by ootofthebox • [GitHub](https://github.com/grahanurdian/habitus)")
