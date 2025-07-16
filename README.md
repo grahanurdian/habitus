@@ -24,7 +24,7 @@ Built with **Python**, **Streamlit**, **OpenAI GPT**, and **SQLite**.
 
 ## 📸 Demo
 
-*(Coming soon: screenshot or gif of the app UI)*
+*(Coming soon)*
 
 ---
 
@@ -42,5 +42,4 @@ Built with **Python**, **Streamlit**, **OpenAI GPT**, and **SQLite**.
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ai-habit-coach.git
-cd ai-habit-coach
+git clone https://github.com/grahanurdian/habitus.git
