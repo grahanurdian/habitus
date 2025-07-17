@@ -28,8 +28,8 @@ Goal: {goal}
 Respond in numbered list format.
 """
 
-def generate_habits(goal: str) -> list[str]:
-    if USE_MOCK:
+def generate_habits(goal: str, mode: str = "OpenAI") -> list[str]:
+    if mode == "Mock":
         return [
             "Wake up at the same time every day.",
             "Write 3 sentences about your goal in a journal.",
@@ -37,7 +37,7 @@ def generate_habits(goal: str) -> list[str]:
             f"(Mock response for goal: {goal})"
         ]
     
-    elif use_g4f:
+    elif mode == "G4F":
         try:
             response = g4f.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -47,11 +47,11 @@ def generate_habits(goal: str) -> list[str]:
                 ]
             )
             content = response.choices[0].message.content
-            return content.strip().split("\n")  # Converts to list of lines
+            return content.strip().split("\n")
         except Exception as e:
-            return [f"⚠️ Error using G4F: {e}"]  # Return list even if it's error
+            return [f"⚠️ Error using G4F: {e}"]
 
-    else:
+    else:  # Default to OpenAI
         try:
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
