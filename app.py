@@ -1,5 +1,5 @@
 import streamlit as st
-from coach import generate_habits, generate_motivation, USE_MOCK
+from coach import generate_habits, generate_motivation
 from tracker import init_db, get_today_habits, save_habits, mark_habit_done
 from datetime import date
 import os
@@ -31,9 +31,12 @@ st.set_page_config(page_title="Habitus - AI Habit Coach", page_icon="🧠", layo
 st.title("🧠 AI Habit Coach")
 st.caption("Build better habits — one small action at a time.")
 
-# 🔧 Mock Mode Indicator
-if USE_MOCK:
-    st.warning("⚠️ Mock Mode Enabled: Using sample habits & motivation (no OpenAI key detected)")
+if mode == "Mock":
+    st.warning("⚠️ Mock Mode Enabled: Using sample habits & motivation (no real AI model used)")
+elif mode == "G4F":
+    st.info("⚠️ G4F Mode Enabled: Using free GPT backend via unofficial API")
+elif mode == "OpenAI":
+    st.success("✅ OpenAI Mode Enabled: Using official OpenAI API")
 
 # 📝 Goal Input Section
 st.markdown("### 🎯 Set Your Goal")
