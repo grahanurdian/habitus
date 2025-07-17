@@ -63,3 +63,15 @@ def generate_habits(goal: str, mode: str = "Mock") -> str:
 
     else:
         return "❌ Invalid mode selected. Please choose Mock, G4F, or OpenAI."
+    
+def generate_motivation(goal: str, mode: str = "Auto") -> str:
+    if mode == "Mock":
+        return f"Keep going with your goal to '{goal}' — every step counts!"
+    elif mode == "G4F":
+        # Dummy placeholder for G4F call
+        return f"[G4F] You're doing great! Keep pushing toward '{goal}'!"
+    elif mode == "OpenAI":
+        # Placeholder for OpenAI call
+        return f"[OpenAI] Remember why you started: '{goal}'. Keep going!"
+    else:
+        return f"Stay consistent with your goal to '{goal}'!"
