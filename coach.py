@@ -41,7 +41,7 @@ def generate_habits(goal: str, mode: str = "OpenAI") -> list[str]:
     
     elif mode == "G4F":
         if g4f is None:
-        return ["⚠️ G4F module not available in this environment."]
+            return ["⚠️ G4F is not available in this environment."]
     try:
         response = g4f.ChatCompletion.create(
             model="gpt-3.5-turbo",
