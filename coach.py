@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+import g4f
+import openai
 
 # Load .env
 load_dotenv()
