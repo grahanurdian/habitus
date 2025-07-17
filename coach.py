@@ -40,18 +40,20 @@ def generate_habits(goal: str, mode: str = "OpenAI") -> list[str]:
         ]
     
     elif mode == "G4F":
-        try:
-            response = g4f.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": HABIT_PROMPT_TEMPLATE.format(goal=goal)}
-                ]
-            )
-            content = response.choices[0].message.content
-            return content.strip().split("\n")
-        except Exception as e:
-            return [f"⚠️ Error using G4F: {e}"]
+        if g4f is None:
+        return ["⚠️ G4F module not available in this environment."]
+    try:
+        response = g4f.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": HABIT_PROMPT_TEMPLATE.format(goal=goal)}
+            ]
+        )
+        content = response.choices[0].message.content
+        return content.strip().split("\n")
+    except Exception as e:
+        return [f"⚠️ Error using G4F: {e}"]
 
     else:  # Default to OpenAI
         try:
