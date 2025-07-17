@@ -28,14 +28,16 @@ Goal: {goal}
 Respond in numbered list format.
 """
 
-def generate_habits(goal: str, mode: str = "Mock") -> str:
-    if mode == "Mock":
-        return f"""1. Wake up at the same time every day.
-2. Write 3 sentences about your goal in a journal.
-3. Drink a full glass of water after waking up.
-(Mock response for goal: {goal})"""
-
-    elif mode == "G4F":
+def generate_habits(goal: str) -> list[str]:
+    if USE_MOCK:
+        return [
+            "Wake up at the same time every day.",
+            "Write 3 sentences about your goal in a journal.",
+            "Drink a full glass of water after waking up.",
+            f"(Mock response for goal: {goal})"
+        ]
+    
+    elif use_g4f:
         try:
             response = g4f.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -44,11 +46,12 @@ def generate_habits(goal: str, mode: str = "Mock") -> str:
                     {"role": "user", "content": HABIT_PROMPT_TEMPLATE.format(goal=goal)}
                 ]
             )
-            return response
+            content = response.choices[0].message.content
+            return content.strip().split("\n")  # Converts to list of lines
         except Exception as e:
-            return f"Error using G4F: {e}"
+            return [f"⚠️ Error using G4F: {e}"]  # Return list even if it's error
 
-    elif mode == "OpenAI":
+    else:
         try:
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -57,12 +60,10 @@ def generate_habits(goal: str, mode: str = "Mock") -> str:
                     {"role": "user", "content": HABIT_PROMPT_TEMPLATE.format(goal=goal)}
                 ]
             )
-            return response.choices[0].message.content
+            content = response.choices[0].message.content
+            return content.strip().split("\n")
         except Exception as e:
-            return f"Error using OpenAI: {e}"
-
-    else:
-        return "❌ Invalid mode selected. Please choose Mock, G4F, or OpenAI."
+            return [f"⚠️ Error using OpenAI: {e}"]
     
 def generate_motivation(goal: str, mode: str = "Auto") -> str:
     if mode == "Mock":

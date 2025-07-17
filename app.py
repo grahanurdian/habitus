@@ -28,7 +28,7 @@ init_db()
 
 # Page Config
 st.set_page_config(page_title="Habitus - AI Habit Coach", page_icon="🧠", layout="centered")
-st.title("🧠 AI Habit Coach")
+st.title("🧠 Habitus - AI Habit Coach")
 st.caption("Build better habits — one small action at a time.")
 
 if mode == "Mock":
@@ -43,14 +43,19 @@ st.markdown("### 🎯 Set Your Goal")
 with st.form("goal_form"):
     goal = st.text_input("What is your current focus or goal?", placeholder="e.g. Become more focused, healthier, etc.")
     submitted = st.form_submit_button("💡 Generate Habit Suggestions")
+
     if submitted and goal:
         with st.spinner("Asking your AI coach..."):
             habits = generate_habits(goal, mode=mode)
-            if habits:
+
+            # Check if valid list of habits
+            if isinstance(habits, list) and all(isinstance(h, str) and len(h) > 2 for h in habits):
+                for habit in habits:
+                    st.write("✅", habit)
                 save_habits(habits)
                 st.success("✅ Habits generated and saved!")
             else:
-                st.error("Something went wrong. Try again!")
+                st.error("❌ Something went wrong generating habits. Try switching mode or changing your goal.")
 
 # 📋 Today's Habits Section
 st.markdown("### 📅 Your Daily Habits")
